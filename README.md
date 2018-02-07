@@ -1,13 +1,13 @@
 ## CommandActionService
-ActionService for [Janet](https://github.com/techery/janet) which delegates job execution back to command action.  
+ActionService for [Janet](https://github.com/techery/janet) delegates any job execution back to the command action.  
 
 ### Getting Started
-##### 1. Define service and add it to `Janet`
+##### 1. Define a service and add it to `Janet`
 ```java
 Janet janet = new Janet.Builder().addService(new CommandActionService()).build();
 ```
 
-##### 2. Define command action class
+##### 2. Define a command action class
 ```java
 @CommandAction
 class CopyBitmapToFileCommand extends Command<File> {
@@ -46,13 +46,13 @@ class CopyBitmapToFileCommand extends Command<File> {
 
 ```
 
-* Each action is an individual class that contains runnable logic;
+* Each action is an individual class that contains a runnable logic;
 * It must be annotated with `@CommandAction` and must extend `Command`;
-* Real job is defined by overriden `void run()` method which is called upon action sending;
-* `CommandCallback` methods should be called to indicate command result; 
-* Cleanup on cancelation is available via overriden `void cancel()`.
+* A real job is defined by the overriden `void run()` method, which is called once the action is sent;
+* `CommandCallback` methods should be called to indicate a command result; 
+* The cleanup on cancelation is available via overriden `void cancel()`.
 
-##### 3. Use `ActionPipe` to send/observe action
+##### 3. Use `ActionPipe` to send/observe an action
 ```java
 ActionPipe<CopyBitmapToFileCommand> actionPipe = janet.createPipe(CopyBitmapToFileCommand.class);
 actionPipe
